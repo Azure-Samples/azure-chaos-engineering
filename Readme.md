@@ -59,6 +59,7 @@ Follow these steps to run an experiment:
 
 1. Open PowerShell as an administrator.
 2. Navigate to the root directory of the Azure Chaos Engineering repository.
+3. Choose one of the scenarios for example aks_chaos.
 3. Modify the parameters to match your environment in 0.parameters.ps1
 3. Execute the login script to authenticate with Azure:
 
@@ -66,7 +67,7 @@ Follow these steps to run an experiment:
    .\scenarios\<scenario_name>\1.login.ps1
    ```
 
-4. Deploy the required resources and set up chaos targets using the provided scripts and templates executing each script (2,3,4).
+4. Deploy the required resources and set up chaos targets by executing the scripts in order.
 5. Run each experiment by executing the corresponding PowerShell script:
 
    ```powershell
@@ -78,3 +79,10 @@ Follow these steps to run an experiment:
 For detailed instructions on running each scenario, consult the README files within their respective directories.
 
 Please ensure you have the necessary permissions in your Azure subscription to create and manage resources and conduct chaos experiments.
+
+## TODOs 
+
+[ ] Implement tracking for each chaos experiment run and automate the collection of detailed logs and results.
+[ ] Set up diagnostic logging for all chaos-impacted resources and integrate with Azure Monitor or Log Analytics workspaces.
+[ ] Expand the library of chaos experiments to include additional Azure resources such as VMs, Network services, etc.
+[ ] Develop and integrate dashboards for real-time visualization and analysis of chaos experiment data using Azure Monitor, Grafana, or similar tools.
