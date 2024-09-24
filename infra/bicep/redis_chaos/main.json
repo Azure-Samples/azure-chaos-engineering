@@ -1,0 +1,151 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.30.3.12046",
+      "templateHash": "16127703120276676927"
+    }
+  },
+  "parameters": {
+    "subscriptionId": {
+      "type": "string",
+      "defaultValue": "de80dbb8-a2dc-4ba1-8058-af99f88c8de1"
+    },
+    "resourceGroupName": {
+      "type": "string",
+      "defaultValue": "aksbicep1-rg"
+    },
+    "clusterName": {
+      "type": "string",
+      "defaultValue": "AKSTEST"
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "swedencentral"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "chaosTargetDeployment",
+      "subscriptionId": "[parameters('subscriptionId')]",
+      "resourceGroup": "[parameters('resourceGroupName')]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "clusterName": {
+            "value": "[parameters('clusterName')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.30.3.12046",
+              "templateHash": "11877665316089251548"
+            }
+          },
+          "parameters": {
+            "clusterName": {
+              "type": "string"
+            },
+            "location": {
+              "type": "string"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Chaos/targets",
+              "apiVersion": "2024-01-01",
+              "scope": "[format('Microsoft.ContainerService/managedClusters/{0}', parameters('clusterName'))]",
+              "name": "Microsoft-AzureKubernetesServiceChaosMesh",
+              "location": "[parameters('location')]",
+              "properties": {}
+            },
+            {
+              "type": "Microsoft.Chaos/targets/capabilities",
+              "apiVersion": "2024-01-01",
+              "scope": "[format('Microsoft.ContainerService/managedClusters/{0}', parameters('clusterName'))]",
+              "name": "[format('{0}/{1}', 'Microsoft-AzureKubernetesServiceChaosMesh', 'DNSChaos-2.1')]",
+              "properties": {},
+              "dependsOn": [
+                "[extensionResourceId(resourceId('Microsoft.ContainerService/managedClusters', parameters('clusterName')), 'Microsoft.Chaos/targets', 'Microsoft-AzureKubernetesServiceChaosMesh')]"
+              ]
+            },
+            {
+              "type": "Microsoft.Chaos/targets/capabilities",
+              "apiVersion": "2024-01-01",
+              "scope": "[format('Microsoft.ContainerService/managedClusters/{0}', parameters('clusterName'))]",
+              "name": "[format('{0}/{1}', 'Microsoft-AzureKubernetesServiceChaosMesh', 'HTTPChaos-2.1')]",
+              "properties": {},
+              "dependsOn": [
+                "[extensionResourceId(resourceId('Microsoft.ContainerService/managedClusters', parameters('clusterName')), 'Microsoft.Chaos/targets', 'Microsoft-AzureKubernetesServiceChaosMesh')]"
+              ]
+            },
+            {
+              "type": "Microsoft.Chaos/targets/capabilities",
+              "apiVersion": "2024-01-01",
+              "scope": "[format('Microsoft.ContainerService/managedClusters/{0}', parameters('clusterName'))]",
+              "name": "[format('{0}/{1}', 'Microsoft-AzureKubernetesServiceChaosMesh', 'IOChaos-2.1')]",
+              "properties": {},
+              "dependsOn": [
+                "[extensionResourceId(resourceId('Microsoft.ContainerService/managedClusters', parameters('clusterName')), 'Microsoft.Chaos/targets', 'Microsoft-AzureKubernetesServiceChaosMesh')]"
+              ]
+            },
+            {
+              "type": "Microsoft.Chaos/targets/capabilities",
+              "apiVersion": "2024-01-01",
+              "scope": "[format('Microsoft.ContainerService/managedClusters/{0}', parameters('clusterName'))]",
+              "name": "[format('{0}/{1}', 'Microsoft-AzureKubernetesServiceChaosMesh', 'KernelChaos-2.1')]",
+              "properties": {},
+              "dependsOn": [
+                "[extensionResourceId(resourceId('Microsoft.ContainerService/managedClusters', parameters('clusterName')), 'Microsoft.Chaos/targets', 'Microsoft-AzureKubernetesServiceChaosMesh')]"
+              ]
+            },
+            {
+              "type": "Microsoft.Chaos/targets/capabilities",
+              "apiVersion": "2024-01-01",
+              "scope": "[format('Microsoft.ContainerService/managedClusters/{0}', parameters('clusterName'))]",
+              "name": "[format('{0}/{1}', 'Microsoft-AzureKubernetesServiceChaosMesh', 'NetworkChaos-2.1')]",
+              "properties": {},
+              "dependsOn": [
+                "[extensionResourceId(resourceId('Microsoft.ContainerService/managedClusters', parameters('clusterName')), 'Microsoft.Chaos/targets', 'Microsoft-AzureKubernetesServiceChaosMesh')]"
+              ]
+            },
+            {
+              "type": "Microsoft.Chaos/targets/capabilities",
+              "apiVersion": "2024-01-01",
+              "scope": "[format('Microsoft.ContainerService/managedClusters/{0}', parameters('clusterName'))]",
+              "name": "[format('{0}/{1}', 'Microsoft-AzureKubernetesServiceChaosMesh', 'PodChaos-2.1')]",
+              "properties": {},
+              "dependsOn": [
+                "[extensionResourceId(resourceId('Microsoft.ContainerService/managedClusters', parameters('clusterName')), 'Microsoft.Chaos/targets', 'Microsoft-AzureKubernetesServiceChaosMesh')]"
+              ]
+            },
+            {
+              "type": "Microsoft.Chaos/targets/capabilities",
+              "apiVersion": "2024-01-01",
+              "scope": "[format('Microsoft.ContainerService/managedClusters/{0}', parameters('clusterName'))]",
+              "name": "[format('{0}/{1}', 'Microsoft-AzureKubernetesServiceChaosMesh', 'StressChaos-2.1')]",
+              "properties": {},
+              "dependsOn": [
+                "[extensionResourceId(resourceId('Microsoft.ContainerService/managedClusters', parameters('clusterName')), 'Microsoft.Chaos/targets', 'Microsoft-AzureKubernetesServiceChaosMesh')]"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+    "location": "<location>",
+    "identity": {
+      "type": "SystemAssigned"
+    },
+    "properties": {
+      "steps": [
+        {
+          "name": "AKS Chaos Mesh DNS Chaos",
+          "branches": [
+            {
+              "name": "branchOne",
+              "actions": [
+                {
+                  "type": "continuous",
+                  "name": "urn:csci:microsoft:azureKubernetesServiceChaosMesh:dnsChaos/2.1",
+                  "selectorId": "myResources",
+                  "duration": "PT10M",
+                  "parameters": [
+                    {
+                      "key": "jsonSpec",
+                      "value": "{\"action\":\"random\",\"mode\":\"all\",\"patterns\":[\"google.com\",\"chaos-mesh.*\",\"github.?om\"],\"selector\":{\"namespaces\":[\"default\"]}}"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "selectors": [
+        {
+          "id": "myResources",
+          "type": "List",
+          "targets": [
+            {
+              "type": "ChaosTarget",
+              "id": "/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>/providers/Microsoft.ContainerService/managedClusters/<cluster-name>/providers/Microsoft.Chaos/targets/Microsoft-AzureKubernetesServiceChaosMesh"
+            }
+          ]
+        }
+      ]
+    }
+  }
+  

@@ -1,0 +1,48 @@
+{
+    "location": "<location>",
+    "identity": {
+      "type": "SystemAssigned"
+    },
+    "properties": {
+      "steps": [
+        {
+          "name": "Reboot Redis Cache",
+          "branches": [
+            {
+              "name": "branchOne",
+              "actions": [
+                {
+                  "type": "discrete",
+                  "name": "urn:csci:microsoft:azureClusteredCacheForRedis:reboot/1.0",
+                  "selectorId": "myResources",
+                  "parameters": [
+                    {
+                      "key": "RebootType",
+                      "value": "AllNodes"
+                    },
+                    {
+                      "key": "ShardId",
+                      "value": "0"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "selectors": [
+        {
+          "id": "myResources",
+          "type": "List",
+          "targets": [
+            {
+              "type": "ChaosTarget",
+              "id": "/subscriptions/<subscription-id>/resourceGroups/<resourceGroupName>/providers/Microsoft.Cache/Redis/<redisName>"
+            }
+          ]
+        }
+      ]
+    }
+  }
+  

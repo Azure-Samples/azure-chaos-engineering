@@ -1,0 +1,44 @@
+{
+    "location": "<location>",
+    "identity": {
+        "type": "SystemAssigned"
+    },
+    "properties": {
+        "steps": [
+            {
+                "name": "AKS Chaos Mesh Network Chaos",
+                "branches": [
+                    {
+                        "name": "branchOne",
+                        "actions": [
+                            {
+                                "type": "continuous",
+                                "name": "urn:csci:microsoft:azureKubernetesServiceChaosMesh:networkChaos/2.1",
+                                "selectorId": "myResources",
+                                "duration": "PT10M", 
+                                "parameters": [
+                                    {
+                                        "key": "jsonSpec",
+                                        "value": "{\"action\":\"delay\",\"mode\":\"one\",\"selector\":{\"namespaces\":[\"default\"]},\"delay\":{\"latency\":\"200ms\",\"correlation\":\"100\",\"jitter\":\"0ms\"}}"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "selectors": [
+            {
+                "id": "myResources",
+                "type": "List",
+                "targets": [
+                    {
+                        "type": "ChaosTarget",
+                        "id": "/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>/providers/Microsoft.ContainerService/managedClusters/<cluster-name>/providers/Microsoft.Chaos/targets/Microsoft-AzureKubernetesServiceChaosMesh"
+                      }
+                ]
+            }
+        ]
+    }
+}

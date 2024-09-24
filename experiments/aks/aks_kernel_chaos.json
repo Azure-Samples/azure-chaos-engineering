@@ -1,0 +1,45 @@
+{
+    "location": "<location>",
+    "identity": {
+      "type": "SystemAssigned"
+    },
+    "properties": {
+      "steps": [
+        {
+          "name": "AKS Kernel Chaos",
+          "branches": [
+            {
+              "name": "branchOne",
+              "actions": [
+                {
+                  "type": "continuous",
+                  "name": "urn:csci:microsoft:azureKubernetesServiceChaosMesh:kernelChaos/2.1",
+                  "selectorId": "Selector1",
+                  "parameters": [
+                    {
+                      "key": "jsonSpec",
+                      "value": "{\"mode\":\"one\",\"selector\":{\"namespaces\":[\"default\"]},\"failKernRequest\":{\"callchain\":[{\"funcname\":\"__x64_sys_mount\"}],\"failtype\":0}}"
+                    }
+                  ],
+                  "duration": "PT10M"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "selectors": [
+        {
+          "id": "Selector1",
+          "type": "List",
+          "targets": [
+            {
+              "type": "ChaosTarget",
+              "id": "/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>/providers/Microsoft.ContainerService/managedClusters/<cluster-name>/providers/Microsoft.Chaos/targets/Microsoft-AzureKubernetesServiceChaosMesh"
+            }
+          ]
+        }
+      ]
+    }
+  }
+  

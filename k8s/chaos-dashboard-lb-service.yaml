@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: chaos-dashboard-lb
+  namespace: chaos-testing
+spec:
+  selector:
+    app.kubernetes.io/name: chaos-mesh
+    app.kubernetes.io/component: chaos-dashboard
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 2333
+  type: LoadBalancer

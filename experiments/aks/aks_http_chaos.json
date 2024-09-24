@@ -1,0 +1,45 @@
+{
+    "location": "<location>",
+    "identity": {
+      "type": "SystemAssigned"
+    },
+    "properties": {
+      "steps": [
+        {
+          "name": "AKS Chaos Mesh HTTP Chaos",
+          "branches": [
+            {
+              "name": "branchOne",
+              "actions": [
+                {
+                  "type": "continuous",
+                  "name": "urn:csci:microsoft:azureKubernetesServiceChaosMesh:httpChaos/2.1",
+                  "selectorId": "Selector1",
+                  "duration": "PT10M",
+                  "parameters": [
+                    {
+                      "key": "jsonSpec",
+                      "value": "{\"mode\":\"all\",\"selector\":{\"namespaces\":[\"default\"]},\"target\":\"Request\",\"port\":80,\"method\":\"GET\",\"path\":\"/api\",\"abort\":true}"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "selectors": [
+        {
+          "id": "Selector1",
+          "type": "List",
+          "targets": [
+            {
+              "type": "ChaosTarget",
+              "id": "/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>/providers/Microsoft.ContainerService/managedClusters/<cluster-name>/providers/Microsoft.Chaos/targets/Microsoft-AzureKubernetesServiceChaosMesh"
+            }
+          ]
+        }
+      ]
+    }
+  }
+  
