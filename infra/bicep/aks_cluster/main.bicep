@@ -23,8 +23,7 @@ module managedCluster 'br/public:avm/res/container-service/managed-cluster:0.3.0
        
     ]
    
-    // Non-required parameters
-    aksServicePrincipalProfile: 
+
     location: location
     publicNetworkAccess:   'Enabled'
     managedIdentities: {

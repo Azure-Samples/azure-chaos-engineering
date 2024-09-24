@@ -9,7 +9,7 @@ $ExperimentFiles = Get-ChildItem -Path "..\..\experiments\aks" -Filter "*.json"
 $ApiVersion = "2023-11-01"
 
 # Set the REDIS scope for role assignment
-$RedisScope = "/subscriptions/$SubscriptionId/resourceGroups/$ResourceGroupName/providers/Microsoft.Cache/Redis/$redisName"
+$RedisScope = "/subscriptions/$SubscriptionId/resourceGroups/$ResourceGroupName/providers/Microsoft.ContainerService/managedClusters/$clusterName"
 
 # The role 'Contributor' should be sufficient for handling most of the Redis-related operations
 
@@ -30,7 +30,7 @@ foreach ($File in $ExperimentFiles) {
     -ResourceGroupName $ResourceGroupName `
     -ExperimentName $File.BaseName `
     -ResourceTypePrefix "Microsoft.ContainerService/managedClusters" `
-    -ResourceName $redisName `
+    -ResourceName $clusterName `
     -RoleName "Azure Kubernetes Service Cluster Admin Role" `
     -ApiVersion $ApiVersion
     

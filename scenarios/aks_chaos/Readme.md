@@ -64,6 +64,6 @@ After the chaos experiments, monitoring the response and behavior of both the AK
    Access the Chaos Studio dashboard within Azure Portal to monitor ongoing experiments, check their status, and view any logs or results generated during the tests.
 
 9. **Access Chaos Mesh Dashboard:**
-   Observe real-time information on the Chaos Mesh dashboard by visiting the external IP provided by the LoadBalancer. This allows for proper visualization and management of experiments.
+   Observe real-time information on the Chaos Mesh dashboard by visiting the external IP provided by the LoadBalancer. This allows for proper visualization and management of experiments. There is a token file generated that you can use to connect into mesh-dashboard.
 
 Through this well-defined process, you'll comprehensively test the resiliency of your AKS infrastructure, leading to improved strategies for fault tolerance and ensuring your cloud applications' robustness and reliability.
