@@ -1,6 +1,6 @@
 targetScope = 'subscription'
 
-param subscriptionId string = 'de80dbb8-a2dc-4ba1-8058-af99f88c8de1'
+param subscriptionId string = ''
 param resourceGroupName string = 'aksbicep1-rg'
 param clusterName string = 'AKSTEST'
 param location string = 'swedencentral'
