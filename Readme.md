@@ -80,6 +80,10 @@ For detailed instructions on running each scenario, consult the README files wit
 
 Please ensure you have the necessary permissions in your Azure subscription to create and manage resources and conduct chaos experiments.
 
+## Author and Contributors
+
+- (Freddy Ayala)[https://github.com/FreddyAyala] (Author)
+
 ## TODOs 
 
 - [ ] Implement tracking for each chaos experiment run and automate the collection of detailed logs and results.
