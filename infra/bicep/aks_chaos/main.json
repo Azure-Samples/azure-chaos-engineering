@@ -11,7 +11,7 @@
   "parameters": {
     "subscriptionId": {
       "type": "string",
-      "defaultValue": "de80dbb8-a2dc-4ba1-8058-af99f88c8de1"
+      "defaultValue": ""
     },
     "resourceGroupName": {
       "type": "string",
