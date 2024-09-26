@@ -80,9 +80,13 @@ For detailed instructions on running each scenario, consult the README files wit
 
 Please ensure you have the necessary permissions in your Azure subscription to create and manage resources and conduct chaos experiments.
 
+## Author and Contributors
+
+- [Freddy Ayala](https://github.com/FreddyAyala) (Author)
+
 ## TODOs 
 
-[ ] Implement tracking for each chaos experiment run and automate the collection of detailed logs and results.
-[ ] Set up diagnostic logging for all chaos-impacted resources and integrate with Azure Monitor or Log Analytics workspaces.
-[ ] Expand the library of chaos experiments to include additional Azure resources such as VMs, Network services, etc.
-[ ] Develop and integrate dashboards for real-time visualization and analysis of chaos experiment data using Azure Monitor, Grafana, or similar tools.
+- [ ] Implement tracking for each chaos experiment run and automate the collection of detailed logs and results.
+- [ ] Set up diagnostic logging for all chaos-impacted resources and integrate with Azure Monitor or Log Analytics workspaces.
+- [ ] Expand the library of chaos experiments to include additional Azure resources such as VMs, Network services, etc.
+- [ ] Develop and integrate dashboards for real-time visualization and analysis of chaos experiment data using Azure Monitor, Grafana, or similar tools.
