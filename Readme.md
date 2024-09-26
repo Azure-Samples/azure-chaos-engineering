@@ -82,7 +82,7 @@ Please ensure you have the necessary permissions in your Azure subscription to c
 
 ## Author and Contributors
 
-- (Freddy Ayala)[https://github.com/FreddyAyala] (Author)
+- [Freddy Ayala](https://github.com/FreddyAyala) (Author)
 
 ## TODOs 
 
