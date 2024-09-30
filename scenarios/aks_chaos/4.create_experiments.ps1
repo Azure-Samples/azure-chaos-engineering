@@ -8,16 +8,6 @@ Set-AzContext -Subscription $SubscriptionId
 $ExperimentFiles = Get-ChildItem -Path "..\..\experiments\aks" -Filter "*.json"
 $ApiVersion = "2023-11-01"
 
-# Set the REDIS scope for role assignment
-$RedisScope = "/subscriptions/$SubscriptionId/resourceGroups/$ResourceGroupName/providers/Microsoft.ContainerService/managedClusters/$clusterName"
-
-# The role 'Contributor' should be sufficient for handling most of the Redis-related operations
-
-$RoleAssignmentCommandFormat = "az role assignment create --assignee `{0}` --role Contributor --scope {1}"
-
-# Replace the placeholder with the actual user or service principal ID and scope (specifically for Redis in this example)
-$RoleAssignmentCommand = $RoleAssignmentCommandFormat -f $userOrServicePrincipal, $RedisScope
-
 # Execute the role assignment command
 Invoke-Expression $RoleAssignmentCommand
 
@@ -27,11 +17,11 @@ foreach ($File in $ExperimentFiles) {
     $Response
     
     AssignRoleToExperimentIdentity -SubscriptionId $SubscriptionId `
-    -ResourceGroupName $ResourceGroupName `
-    -ExperimentName $File.BaseName `
-    -ResourceTypePrefix "Microsoft.ContainerService/managedClusters" `
-    -ResourceName $clusterName `
-    -RoleName "Azure Kubernetes Service Cluster Admin Role" `
-    -ApiVersion $ApiVersion
+        -ResourceGroupName $ResourceGroupName `
+        -ExperimentName $File.BaseName `
+        -ResourceTypePrefix "Microsoft.ContainerService/managedClusters" `
+        -ResourceName $clusterName `
+        -RoleName "Azure Kubernetes Service Cluster Admin Role" `
+        -ApiVersion $ApiVersion
     
 }

@@ -1,6 +1,6 @@
 # Set the subscription ID and Azure resource group variables
 $SubscriptionId = ""
-$redisName = "redistestchaos"
+$clusterName = "akstest02"
 $resourceGroupName = "aksbicep1-rg"
 $Location = "swedencentral"
 $Tenant = ""

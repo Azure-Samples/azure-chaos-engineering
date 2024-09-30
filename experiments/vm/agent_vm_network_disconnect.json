@@ -1,0 +1,41 @@
+{
+  "identity": {
+    "type": "SystemAssigned"
+  },
+  "location": "<location>",
+  "properties": {
+    "selectors": [
+      {
+        "type": "List",
+        "id": "<selectorId>",
+        "targets": [
+          {
+            "type": "ChaosTarget",
+            "id": "<target-id>"
+          }
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "branches": [
+          {
+            "actions": [
+              {
+                "type": "continuous",
+                "parameters": [
+                 
+                ],
+                "duration": "PT10M",
+                "selectorId": "<selectorId>",
+                "name": "urn:csci:microsoft:agent:networkDisconnect/1.1"
+              }
+            ],
+            "name": "branchOne"
+          }
+        ],
+        "name": "VMSS Network Disconnect"
+      }
+    ]
+  }
+}

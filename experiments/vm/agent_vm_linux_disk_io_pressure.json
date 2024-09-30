@@ -1,0 +1,58 @@
+{
+  "identity": {
+    "type": "SystemAssigned"
+  },
+  "location": "<location>",
+  "properties": {
+    "selectors": [
+      {
+        "type": "List",
+        "id": "<selectorId>",
+        "targets": [
+          {
+            "type": "ChaosTarget",
+            "id": "<target-id>"
+          }
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "branches": [
+          {
+            "actions": [
+              {
+                "type": "continuous",
+                "parameters": [
+                
+                 
+                  {
+                    "key": "workerCount",
+                    "value": "4"
+                  },
+                  {
+                    "Key": "fileSizePerWorker",
+                    "value":"2g"
+                  },
+                  {
+                    "Key": "blockSize",
+                    "Value": "4m"
+                  },
+                  {
+                    "Key": "targetTempDirectory",
+                    "Value": "/tmp"
+                  }
+                ],
+                "duration": "PT10M",
+                "selectorId": "<selectorId>",
+                "name": "urn:csci:microsoft:agent:linuxDiskIOPressure/1.1"
+              }
+            ],
+            "name": "branchOne"
+          }
+        ],
+        "name": "VMSS Disk IO Pressure"
+      }
+    ]
+  }
+}

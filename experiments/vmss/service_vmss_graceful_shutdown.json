@@ -1,0 +1,52 @@
+{
+  "identity": {
+    "type": "SystemAssigned"
+  },
+  "location": "<location>",
+  "properties": {
+    "selectors": [
+      {
+        "type": "List",
+        "id": "<selectorId>",
+        "targets": [
+          {
+            "type": "ChaosTarget",
+            "id": "<target-id>"
+          }
+        ],
+        "filter": {
+          "type": "Simple",
+          "parameters": {
+            "zones": [
+              "1"
+            ]
+          }
+        }
+      }
+    ],
+    "steps": [
+      {
+        "branches": [
+          {
+            "actions": [
+              {
+                "type": "continuous",
+                "parameters": [
+                  {
+                    "Value": "false",
+                    "Key": "abruptShutdown"
+                  }
+                ],
+                "duration": "PT10M",
+                "selectorId": "<selectorId>",
+                "name": "urn:csci:microsoft:virtualMachineScaleSet:shutdown/2.0"
+              }
+            ],
+            "name": "branchOne"
+          }
+        ],
+        "name": "Graceful Shutdown VMSS"
+      }
+    ]
+  }
+}

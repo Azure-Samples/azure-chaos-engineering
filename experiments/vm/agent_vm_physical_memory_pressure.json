@@ -1,0 +1,44 @@
+{
+  "identity": {
+    "type": "SystemAssigned"
+  },
+  "location": "<location>",
+  "properties": {
+    "selectors": [
+      {
+        "type": "List",
+        "id": "<selectorId>",
+        "targets": [
+          {
+            "type": "ChaosTarget",
+            "id": "<target-id>"
+          }
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "branches": [
+          {
+            "actions": [
+              {
+                "type": "continuous",
+                "parameters": [
+                  {
+                    "Value": "95",
+                    "Key": "pressureLevel"
+                  }
+                ],
+                "duration": "PT10M",
+                "selectorId": "<selectorId>",
+                "name": "urn:csci:microsoft:agent:physicalMemoryPressure/1.0"
+              }
+            ],
+            "name": "branchOne"
+          }
+        ],
+        "name": "VMSS Physical Memory Pressure"
+      }
+    ]
+  }
+}
