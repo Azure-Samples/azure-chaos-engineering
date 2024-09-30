@@ -24,7 +24,10 @@
               {
                 "type": "continuous",
               
-                "parameters": [],
+                "parameters": [{
+                  "key": "virtualMachineScaleSetInstances",
+                  "value": "<ScaleSetInstance>"
+                }],
                 "duration": "PT10M",
                 "selectorId": "<selectorId>",
                 "name": "urn:csci:microsoft:agent:networkIsolation/1.0"

@@ -6,7 +6,7 @@
 
 #Connect-AzAccount -Tenant $Tenant
 Set-AzContext -Subscription $SubscriptionId
-$ExperimentFiles = Get-ChildItem -Path "..\..\experiments\vm\" -Filter "*.json"
+$ExperimentFiles = Get-ChildItem -Path "..\..\experiments\vmss\" -Filter "*.json"
 $ApiVersion = "2023-11-01"
 
 

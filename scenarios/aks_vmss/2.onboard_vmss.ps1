@@ -46,14 +46,7 @@ az deployment sub create --template-file "..\..\infra\bicep\vmss_chaos\main.bice
 
 # Check & Enable automatic OS upgrades for the found VMSS
 # This is necessary for Chaos Agent Installation
-foreach ($vmssName in $foundVmssNames) {
-    Write-Host "Checking automatic OS upgrade status for VMSS '$vmssName'..."
-    $vmss = az vmss show --name $vmssName --resource-group $nodeResourceGroup --output json | ConvertFrom-Json
-    if (-Not $vmss.upgradePolicy.automaticOSUpgrade) {
-        Write-Host "Enabling automatic OS upgrade for VMSS '$vmssName'..."
-        az vmss update --name $vmssName --resource-group $nodeResourceGroup --set upgradePolicy.automaticOSUpgrade=true --output none
-        Write-Host "Automatic OS upgrade has been enabled for VMSS '$vmssName'."
-    } else {
-        Write-Host "Automatic OS upgrade is already enabled for VMSS '$vmssName'."
-    }
-}
+
+Write-Host "Triggering image upgrade for VMSS '$vmssName' in resource group '$nodeResourceGroup'..."
+az vmss rolling-upgrade start --name $vmssName --resource-group $nodeResourceGroup
+Write-Host "Image upgrade triggered for VMSS '$vmssName'."

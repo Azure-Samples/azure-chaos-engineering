@@ -13,8 +13,8 @@ function CreateChaosStudioExperiment {
         [string]$ScaleSetInstance = $null,
         [string]$ExperimentName = "",
         [string]$TargetType = "",
-        [string]$vmResourceGroupName="",
-        [string]$vmName=""
+        [string]$vmResourceGroupName = "",
+        [string]$vmName = ""
         
     )
     
@@ -39,34 +39,24 @@ function CreateChaosStudioExperiment {
 
     if (![string]::IsNullOrWhiteSpace($vmResourceGroupName) -and ![string]::IsNullOrWhiteSpace($vmName)) {
         $vmTargetId = "/subscriptions/$SubscriptionId/resourceGroups/$vmResourceGroupName/providers/Microsoft.Compute/virtualMachines/$vmName/providers/Microsoft.Chaos/targets/microsoft-virtualmachine"
-        $ExperimentJsonContent = $ExperimentJsonContent -replace "<vm-target-id>", $vmTargetId
-        Write-Host "vmTargetId: '$vmTargetId'"
+        $ExperimentJsonContent = $ExperimentJsonContent -replace "<target-id>", $vmTargetId
+        Write-Host "VM Target ID: '$vmTargetId'"
     }
     elseif (![string]::IsNullOrWhiteSpace($VmssResourceGroupName) -and ![string]::IsNullOrWhiteSpace($vmssName)) {
         if ($VmssExperimentType -eq "agent") {
             $VmssTargetId = "/subscriptions/$SubscriptionId/resourceGroups/$VmssResourceGroupName/providers/Microsoft.Compute/virtualMachineScaleSets/$vmssName/providers/Microsoft.Chaos/targets/Microsoft-Agent"
-            $ExperimentJsonContent = $ExperimentJsonContent -replace "<vmss-target-id>", $VmssTargetId
+            $ExperimentJsonContent = $ExperimentJsonContent -replace "<target-id>", $VmssTargetId
         }
         elseif ($VmssExperimentType -eq "service") {
             $VmssTargetId = "/subscriptions/$SubscriptionId/resourceGroups/$VmssResourceGroupName/providers/Microsoft.Compute/virtualMachineScaleSets/$vmssName/providers/Microsoft.Chaos/targets/microsoft-virtualmachinescaleset"
-            $ExperimentJsonContent = $ExperimentJsonContent -replace "<vmss-target-id>", $VmssTargetId
+            $ExperimentJsonContent = $ExperimentJsonContent -replace "<target-id>", $VmssTargetId
         }
 
         Write-Host "VmssTargetId: '$VmssTargetId'"
     }
-
-  
-    if ($TargetType -ne "VMSS") {
-        # Remove the VMSS parameters block by using regex to match the tags
-        $ExperimentJsonContent = $ExperimentJsonContent -replace "/\*<vmss_params>.*?</vmss_params>\*/", ""
-    }
-    else {
-        # Only replace the placeholder inside the tags for VMSS experiments
-        $ExperimentJsonContent = $ExperimentJsonContent -replace "<ScaleSetInstance>", $ScaleSetInstance
-    }
     
     $ExperimentJsonContent = $ExperimentJsonContent | ConvertFrom-Json | ConvertTo-Json -Depth 10
-
+    $ExperimentJsonContent
     # Extract the experiment name from the filename (without extension)
     if (-not $ExperimentName) {
         $ExperimentName = [System.IO.Path]::GetFileNameWithoutExtension((Get-Item $ExperimentFilePath).Name).Trim()

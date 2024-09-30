@@ -11,7 +11,7 @@
         "targets": [
           {
             "type": "ChaosTarget",
-            "id": "<vmss-target-id>"
+            "id": "<target-id>"
           }
         ]
       }
@@ -27,9 +27,6 @@
                   {
                     "Value": "95",
                     "Key": "pressureLevel"
-                  },{
-                    "key": "virtualMachineScaleSetInstances",
-                    "value": "<ScaleSetInstance>"
                   }
                 ],
                 "duration": "PT10M",

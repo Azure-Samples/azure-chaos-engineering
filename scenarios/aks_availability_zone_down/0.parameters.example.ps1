@@ -7,5 +7,4 @@ $AvailabilityZone = 1
 $ExperimentName="akz_az_down"
 $Tenant = ""
 # Set the user or service principal
-$userOrServicePrincipal = ""
 $LogAnalyticsWorkspaceId = ""

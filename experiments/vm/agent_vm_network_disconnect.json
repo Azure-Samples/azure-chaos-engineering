@@ -11,7 +11,7 @@
         "targets": [
           {
             "type": "ChaosTarget",
-            "id": "<vmss-target-id>"
+            "id": "<target-id>"
           }
         ]
       }
@@ -24,10 +24,7 @@
               {
                 "type": "continuous",
                 "parameters": [
-                  {
-                    "key": "virtualMachineScaleSetInstances",
-                    "value": "<ScaleSetInstance>"
-                  }
+                 
                 ],
                 "duration": "PT10M",
                 "selectorId": "<selectorId>",

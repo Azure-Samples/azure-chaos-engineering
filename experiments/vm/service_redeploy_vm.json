@@ -22,19 +22,19 @@
           {
             "actions": [
               {
-                "type": "continuous",
-              
-                "parameters": [],
+                "type": "discrete",
+                "parameters": [
+                 
+                ],
                 "duration": "PT10M",
                 "selectorId": "<selectorId>",
-                "name": "urn:csci:microsoft:agent:networkIsolation/1.0"
+                "name": "urn:csci:microsoft:virtualMachine:redeploy/1.0"
               }
-             
             ],
             "name": "branchOne"
           }
         ],
-        "name": "VMSS Network Isolation"
+        "name": "Redeploy RM"
       }
     ]
   }

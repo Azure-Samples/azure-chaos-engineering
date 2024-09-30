@@ -27,8 +27,11 @@
                     {
                         "key": "pressureLevel",
                         "value": "95"
-                      }
-                    
+                      },
+                    {
+                      "key": "virtualMachineScaleSetInstances",
+                      "value": "<ScaleSetInstance>"
+                    }
                   ],
                   "duration": "PT10M",
                   "selectorId": "<selectorId>",

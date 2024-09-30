@@ -23,18 +23,21 @@
             "actions": [
               {
                 "type": "continuous",
-              
-                "parameters": [],
+                "parameters": [
+                  {
+                    "key": "virtualMachineScaleSetInstances",
+                    "value": "<ScaleSetInstance>"
+                  }
+                ],
                 "duration": "PT10M",
                 "selectorId": "<selectorId>",
-                "name": "urn:csci:microsoft:agent:networkIsolation/1.0"
+                "name": "urn:csci:microsoft:agent:networkDisconnect/1.1"
               }
-             
             ],
             "name": "branchOne"
           }
         ],
-        "name": "VMSS Network Isolation"
+        "name": "VMSS Network Disconnect"
       }
     ]
   }

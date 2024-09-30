@@ -15,6 +15,13 @@ By simulating conditions such as DNS failures, HTTP chaos, or Redis cache reboot
 ## Getting Started
 
 To begin using Azure Chaos Engineering, you must install certain prerequisites and execute PowerShell scripts to log in to Azure, configure your environment, deploy resources, and run experiments.
+### Change log
+
+- October 1st, 2024 
+   - Added new scenario to inject faults for the VMSS behind aks
+   - New scenario to target VM
+   - Ne w scenario to simulate Availabilty Zone Down by isolating an AKS node (vmss instance in specific availabiltiy zone)
+- September 25th, 2024 - First Release
 
 ### Prerequisites
 
@@ -47,9 +54,10 @@ The repository contains several scenarios, each with its own unique set of chaos
 
 - **AKS Chaos:** Focuses on Kubernetes services, simulating various disruptions and failures within the AKS environment
 - **AKS VMSS Chaos** Focuses on the VMSS service powering AKS Nodes simulating several hardware failures such as network disconnect, CPU pressure, etc.
-- **VMSS Chaos** Focuses on VMSS with Uniform orchestration (Chaos Studio limitation) 
+- **VMSS Chaos (Linux)** Focuses on VMSS with Uniform orchestration (Chaos Studio limitation) 
+- **VM Chaos (Linux)** Allows to execute faults on Linux VM 
 - **Redis Chaos:** Tests the resilience of Azure Cache for Redis instances by triggering controlled disruptions such as reboots
-- **Network Chaos:** Evaluates network reliability by introducing latency, packet loss, or other network anomalies
+
 
 Each scenario folder includes PowerShell scripts that sequentially perform the necessary steps to execute the experiments.
 
@@ -69,7 +77,16 @@ Follow these steps to run an experiment:
    .\scenarios\<scenario_name>\1.login.ps1
    ```
 
-4. Deploy the required resources and set up chaos targets by executing the scripts in order.
+4. Deploy the required resources and set up chaos targets by executing the scripts in order (steps will be differnt according to type of scenario).
+   ```powershell
+   .\scenarios\<scenario_name>\2.deploy_aks.ps1
+   ```
+   ```powershell
+   .\scenarios\<scenario_name>\3.install_chaos_mesh.ps1
+   ```
+   ```powershell
+   .\scenarios\<scenario_name>\4.create_experiments_.ps1
+   ```
 5. Run each experiment by executing the corresponding PowerShell script:
 
    ```powershell
@@ -77,6 +94,7 @@ Follow these steps to run an experiment:
    ```
 
 6. Monitor the results through the Chaos Studio dashboard or logs to analyze the impact and identify the next steps towards improving system resilience.
+7. Customise the scrips to respond to your use case.
 
 For detailed instructions on running each scenario, consult the README files within their respective directories.
 
@@ -90,5 +108,10 @@ Please ensure you have the necessary permissions in your Azure subscription to c
 
 - [ ] Implement tracking for each chaos experiment run and automate the collection of detailed logs and results.
 - [ ] Set up diagnostic logging for all chaos-impacted resources and integrate with Azure Monitor or Log Analytics workspaces.
-- [ ] Expand the library of chaos experiments to include additional Azure resources such as VMs, Network services, etc.
+- Expand the library of chaos experiments to include additional Azure resources such as VMs, Network services, etc.
+- [X] AKS
+- [X] VMSS
+- [X] REDIS
+- [X] VM
+- [ ] Refactor the code into a more generic CLI tool -> AzChaosCLI
 - [ ] Develop and integrate dashboards for real-time visualization and analysis of chaos experiment data using Azure Monitor, Grafana, or similar tools.

@@ -28,7 +28,7 @@ else {
 }
 
 $TargetType = "agent"
-$ExperimentFilePath = "..\..\experiments\vm\agent_vm_network_isolation.json"
+$ExperimentFilePath = "..\..\experiments\vmss\agent_vmss_network_isolation.json"
 $ScaleSetInstance = Get-VMSSInstanceIndexesInAvailabilityZone -VmssName $foundVmssNames -ResourceGroupName $nodeResourceGroup -AvailabilityZone $AvailabilityZone
 
 $Response = CreateChaosStudioExperiment -ExperimentName $ExperimentName -ExperimentFilePath $ExperimentFilePath -SubscriptionId $SubscriptionId -ResourceGroupName $ResourceGroupName -ApiVersion $ApiVersion -Location $Location  -VmssResourceGroupName $nodeResourceGroup -VmssName $foundVmssNames -VmssExperimentType $TargetType -ScaleSetInstance $ScaleSetInstance -TargetType "VMSS" 

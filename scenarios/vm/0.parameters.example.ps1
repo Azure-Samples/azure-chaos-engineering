@@ -6,5 +6,4 @@ $Location = "swedencentral"
 $ExperimentName="vm_shutdown"
 $Tenant = ""
 # Set the user or service principal
-$userOrServicePrincipal = ""
 $LogAnalyticsWorkspaceId = ""

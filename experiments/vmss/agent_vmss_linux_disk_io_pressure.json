@@ -25,7 +25,10 @@
                 "type": "continuous",
                 "parameters": [
                 
-                 
+                  {
+                    "key": "virtualMachineScaleSetInstances",
+                    "value": "<ScaleSetInstance>"
+                  },
                   {
                     "key": "workerCount",
                     "value": "4"

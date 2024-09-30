@@ -13,7 +13,15 @@
             "type": "ChaosTarget",
             "id": "<target-id>"
           }
-        ]
+        ],
+        "filter": {
+          "type": "Simple",
+          "parameters": {
+            "zones": [
+              "1"
+            ]
+          }
+        }
       }
     ],
     "steps": [
@@ -23,18 +31,21 @@
             "actions": [
               {
                 "type": "continuous",
-              
-                "parameters": [],
+                "parameters": [
+                  {
+                    "Value": "false",
+                    "Key": "abruptShutdown"
+                  }
+                ],
                 "duration": "PT10M",
                 "selectorId": "<selectorId>",
-                "name": "urn:csci:microsoft:agent:networkIsolation/1.0"
+                "name": "urn:csci:microsoft:virtualMachineScaleSet:shutdown/2.0"
               }
-             
             ],
             "name": "branchOne"
           }
         ],
-        "name": "VMSS Network Isolation"
+        "name": "Graceful Shutdown VMSS"
       }
     ]
   }

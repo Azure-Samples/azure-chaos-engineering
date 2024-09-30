@@ -28,6 +28,6 @@ Write-Host "Deploying Chaos Studio to VM '$vmName'..."
 
 # Provide the path to the main.bicep file which will deploy the Chaos Agent and associated capabilities
 $mainBicepPath = "..\..\infra\bicep\vm_chaos\main.bicep" 
-az deployment sub create --location $Location --template-file $mainBicepPath --parameters subscriptionId=$SubscriptionId resourceGroupName=$resourceGroupName vmName=$vmName clientId=$userOrServicePrincipal tenantId=$Tenant location=$Location
+az deployment sub create --location $Location --template-file $mainBicepPath --parameters subscriptionId=$SubscriptionId resourceGroupName=$resourceGroupName vmName=$vmName clientId=$identityPrincipalId tenantId=$Tenant location=$Location
 
 Write-Host "Chaos Studio deployment has been initiated for VM '$vmName'."
