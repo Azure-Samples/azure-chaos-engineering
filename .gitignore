@@ -1,2 +1,4 @@
 scenarios/aks_chaos/chaos_dashboard_token_name.txt
 scenarios/aks_chaos/chaos_dashboard_token.txt
+0.parameters.ps1
+all_code_contents.txt

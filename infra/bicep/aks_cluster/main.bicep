@@ -13,6 +13,8 @@ module managedCluster 'br/public:avm/res/container-service/managed-cluster:0.3.0
     primaryAgentPoolProfile: [
       {
         availabilityZones: [
+          '1'
+          '2'
           '3'
         ]
         count: 3

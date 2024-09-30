@@ -1,0 +1,48 @@
+{
+  "identity": {
+    "type": "SystemAssigned"
+  },
+  "location": "<location>",
+  "properties": {
+    "selectors": [
+      {
+        "type": "List",
+        "id": "<selectorId>",
+        "targets": [
+          {
+            "type": "ChaosTarget",
+            "id": "<vmss-target-id>"
+          }
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "branches": [
+          {
+            "actions": [
+              {
+                "type": "continuous",
+                "parameters": [
+                  {
+                    "Value": "100",
+                    "Key": "latencyInMilliseconds"
+                  },
+                  {
+                    "key": "virtualMachineScaleSetInstances",
+                    "value": "<ScaleSetInstance>"
+                  }
+                ],
+                "duration": "PT10M",
+                "selectorId": "<selectorId>",
+                "name": "urn:csci:microsoft:agent:networkLatency/1.1"
+              }
+            ],
+            "name": "branchOne"
+          }
+        ],
+        "name": "VMSS Network Latency"
+      }
+    ]
+  }
+}

@@ -46,6 +46,8 @@ Each experiment scenario includes a set of PowerShell scripts that guide you thr
 The repository contains several scenarios, each with its own unique set of chaos experiments:
 
 - **AKS Chaos:** Focuses on Kubernetes services, simulating various disruptions and failures within the AKS environment
+- **AKS VMSS Chaos** Focuses on the VMSS service powering AKS Nodes simulating several hardware failures such as network disconnect, CPU pressure, etc.
+- **VMSS Chaos** Focuses on VMSS with Uniform orchestration (Chaos Studio limitation) 
 - **Redis Chaos:** Tests the resilience of Azure Cache for Redis instances by triggering controlled disruptions such as reboots
 - **Network Chaos:** Evaluates network reliability by introducing latency, packet loss, or other network anomalies
 
@@ -60,7 +62,7 @@ Follow these steps to run an experiment:
 1. Open PowerShell as an administrator.
 2. Navigate to the root directory of the Azure Chaos Engineering repository.
 3. Choose one of the scenarios for example aks_chaos.
-3. Modify the parameters to match your environment in 0.parameters.ps1
+3. Modify the parameters to match your environment in 0.parameters.ps1 (you can rename and use the example one provided) for each scenario
 3. Execute the login script to authenticate with Azure:
 
    ```powershell

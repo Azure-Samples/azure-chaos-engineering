@@ -20,6 +20,7 @@ function StartChaosExperiment {
             Write-Host "Experiment started successfully: $ExperimentName"
             return $StartResponse.Headers["Azure-AsyncOperation"]
         } else {
+            $StartResponse
             Write-Host "Failed to start experiment: $ExperimentName. Status code: $($StartResponse.StatusCode)"
         }
     } catch {

@@ -11,6 +11,15 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 helm install ingress-nginx ingress-nginx/ingress-nginx --set controller.service.type=LoadBalancer
 
+# Set the aks scope for role assignment
+$Scope = "/subscriptions/$SubscriptionId/resourceGroups/$ResourceGroupName/providers/Microsoft.ContainerService/managedClusters/$clusterName"
+
+# The role 'Contributor' should be sufficient for handling most of the Redis-related operations
+
+$RoleAssignmentCommandFormat = "az role assignment create --assignee `{0}` --role Contributor --scope {1}"
+
+# Replace the placeholder with the actual user or service principal ID and scope (specifically for aks in this example)
+$RoleAssignmentCommand = $RoleAssignmentCommandFormat -f $userOrServicePrincipal, $Scope
 
 # Kubernetes ClusterRoleBinding to give the user cluster-admin rights
 # Assign cluster admin role to the user for the particular AKS resource 

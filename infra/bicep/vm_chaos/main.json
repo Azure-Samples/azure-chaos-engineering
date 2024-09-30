@@ -1,0 +1,178 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.30.23.60470",
+      "templateHash": "1079826320973649737"
+    }
+  },
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "eastus"
+    },
+    "subscriptionId": {
+      "type": "string",
+      "defaultValue": "subscription_guid_here"
+    },
+    "resourceGroupName": {
+      "type": "string",
+      "defaultValue": "your_resource_group"
+    },
+    "vmName": {
+      "type": "string",
+      "defaultValue": "your_vm_name"
+    },
+    "clientId": {
+      "type": "string"
+    },
+    "tenantId": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "[format('chaosTargetDeployment-{0}', parameters('vmName'))]",
+      "subscriptionId": "[parameters('subscriptionId')]",
+      "resourceGroup": "[parameters('resourceGroupName')]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "vmName": {
+            "value": "[parameters('vmName')]"
+          },
+          "clientId": {
+            "value": "[parameters('clientId')]"
+          },
+          "tenantId": {
+            "value": "[parameters('tenantId')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.30.23.60470",
+              "templateHash": "14623906855081309789"
+            }
+          },
+          "parameters": {
+            "location": {
+              "type": "string"
+            },
+            "vmName": {
+              "type": "string"
+            },
+            "clientId": {
+              "type": "string"
+            },
+            "tenantId": {
+              "type": "string"
+            },
+            "chaosAgentExtensionName": {
+              "type": "string",
+              "defaultValue": "ChaosAgent"
+            },
+            "chaosAgentPublisher": {
+              "type": "string",
+              "defaultValue": "Microsoft.Azure.Chaos"
+            },
+            "chaosAgentType": {
+              "type": "string",
+              "defaultValue": "ChaosLinuxAgent"
+            },
+            "chaosAgentTypeHandlerVersion": {
+              "type": "string",
+              "defaultValue": "1.0"
+            }
+          },
+          "variables": {
+            "capabilitiesVM": [
+              "StressNg-1.0",
+              "CPUPressure-1.0",
+              "DiskIOPressure-1.1",
+              "DnsFailure-1.0",
+              "KillProcess-1.0",
+              "LinuxDiskIOPressure-1.1",
+              "NetworkDisconnect-1.1",
+              "NetworkDisconnectViaFirewall-1.0",
+              "NetworkIsolation-1.0",
+              "NetworkLatency-1.1",
+              "NetworkPacketLoss-1.0",
+              "PauseProcess-1.0",
+              "PhysicalMemoryPressure-1.0",
+              "StopService-1.0",
+              "TimeChange-1.0",
+              "VirtualMemoryPressure-1.0"
+            ]
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Chaos/targets",
+              "apiVersion": "2024-01-01",
+              "scope": "[format('Microsoft.Compute/virtualMachines/{0}', parameters('vmName'))]",
+              "name": "Microsoft-Agent",
+              "location": "[parameters('location')]",
+              "properties": {
+                "identities": [
+                  {
+                    "type": "UserAssigned",
+                    "clientId": "[parameters('clientId')]",
+                    "tenantId": "[parameters('tenantId')]"
+                  }
+                ]
+              }
+            },
+            {
+              "copy": {
+                "name": "chaosCapabilities",
+                "count": "[length(variables('capabilitiesVM'))]"
+              },
+              "type": "Microsoft.Chaos/targets/capabilities",
+              "apiVersion": "2024-01-01",
+              "scope": "[format('Microsoft.Compute/virtualMachines/{0}', parameters('vmName'))]",
+              "name": "[format('{0}/{1}', 'Microsoft-Agent', variables('capabilitiesVM')[copyIndex()])]",
+              "properties": {},
+              "dependsOn": [
+                "[extensionResourceId(resourceId('Microsoft.Compute/virtualMachines', parameters('vmName')), 'Microsoft.Chaos/targets', 'Microsoft-Agent')]"
+              ]
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2021-07-01",
+              "name": "[format('{0}/{1}', parameters('vmName'), parameters('chaosAgentExtensionName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "[parameters('chaosAgentPublisher')]",
+                "type": "[parameters('chaosAgentType')]",
+                "typeHandlerVersion": "[parameters('chaosAgentTypeHandlerVersion')]",
+                "autoUpgradeMinorVersion": true,
+                "enableAutomaticUpgrade": false,
+                "settings": {
+                  "auth.msi.clientid": "[parameters('clientId')]",
+                  "profile": "[reference(extensionResourceId(resourceId('Microsoft.Compute/virtualMachines', parameters('vmName')), 'Microsoft.Chaos/targets', 'Microsoft-Agent'), '2024-01-01').agentProfileId]"
+                },
+                "protectedSettings": {}
+              },
+              "dependsOn": [
+                "[extensionResourceId(resourceId('Microsoft.Compute/virtualMachines', parameters('vmName')), 'Microsoft.Chaos/targets', 'Microsoft-Agent')]"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

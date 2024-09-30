@@ -1,0 +1,47 @@
+{
+  "identity": {
+    "type": "SystemAssigned"
+  },
+  "location": "<location>",
+  "properties": {
+    "selectors": [
+      {
+        "type": "List",
+        "id": "<selectorId>",
+        "targets": [
+          {
+            "type": "ChaosTarget",
+            "id": "<vmss-target-id>"
+          }
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "branches": [
+          {
+            "actions": [
+              {
+                "type": "continuous",
+                "parameters": [
+                  {
+                    "Value": "95",
+                    "Key": "pressureLevel"
+                  },{
+                    "key": "virtualMachineScaleSetInstances",
+                    "value": "<ScaleSetInstance>"
+                  }
+                ],
+                "duration": "PT10M",
+                "selectorId": "<selectorId>",
+                "name": "urn:csci:microsoft:agent:virtualMemoryPressure/1.0"
+              }
+            ],
+            "name": "branchOne"
+          }
+        ],
+        "name": "VMSS Virtual Memory Pressure"
+      }
+    ]
+  }
+}
